@@ -14,12 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/register', 'Api\AuthController@register');
+Route::post('/login', 'Api\AuthController@login');
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('/me', 'Api\AuthController@me');
+    Route::post('/logout', 'Api\AuthController@logout');
+
+    Route::prefix('wallet', function() {
+      Route::get('/', 'WalletController@index');
+      Route::get('/{id}', 'WalletController@detail');
+      Route::post('/', 'WalletController@add');
+      Route::delete('/{id}', 'WalletController@delete');
+    }); 
 });
-  Route::post('/register', 'Api\AuthController@register');
-  Route::post('/login', 'Api\AuthController@login');
-  Route::post('/logout', 'Api\AuthController@logout');
-  Route::post('/refresh', 'Api\AuthController@refresh');
-  Route::get('/me', 'Api\AuthController@me')->middleware('auth:api');
-  Route::get('/{id}','Api\AuthController@get_info');
+
+
+

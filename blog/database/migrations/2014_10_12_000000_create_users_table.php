@@ -15,20 +15,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('username', 16);
+			$table->string('username', 16)->unique();
 			$table->string('password', 100);
-			$table->string('hoVaTen', 128);
-			$table->date('ngaySinh')->nullable();
-			$table->string('email');
-			$table->string('soDienThoai')->nullable();
-			$table->string('gioiTinh')->nullable(); //1 nam 2 nu 3 khac
-            $table->string('diaChi')->nullable();
-            $table->string('key', 128);
-            $table->string('address', 128);
-			$table->integer('Role'); //1 admin 2 user
-            $table->integer('Active'); //1 đã active 0 chưa active
-          
-			$table->rememberToken();
+			$table->string('full_name', 128);
+			$table->string('phone_number')->index();
+            $table->string('address');
+			$table->unsignedInteger('role'); //1 admin 2 user
 			$table->timestamps();
         });
     }

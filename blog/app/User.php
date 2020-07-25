@@ -9,27 +9,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 2;
 
-    // Rest omitted for brevity
-
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
-	 protected $fillable = [
+    protected $fillable = [
         'username', 
         'password',
-        'hoVaTen',
-        'ngaySinh',
-        'email',
-        'soDienThoai',
-        'gioiTinh',
-        'diaChi', 
-        'keyAdress', 
-        'Role', 
-        'Active', 
+        'full_name',
+        'phone_number',
+        'address',
+        'role'
     ];
+
+    protected $hidden= [
+        "password"
+    ];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -43,5 +38,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function wallets()
+    {
+        return $this->hasMany(Wallet::class, 'user_id');
     }
 }
