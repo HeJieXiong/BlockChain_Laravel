@@ -13,20 +13,22 @@ class Controller extends BaseController
 
     static public function responseSuccess($data = '', $message = '', $code = 200)
     {
-        return response()->json([
-            'data' => $data,
-            'message' => $message,
-            'code' => $code
-        ]);
+        return response()->json($data, $code);
     }
 
-    static public function responseError($error = '', $data = '', $code = 400)
+    static public function responseError($error = '', $code = 400)
     {
-        return response()->json([
-            'error' => $error,
-            'data' => $data,
-            'code' => $code
-        ]);
+        $headers = [
+            'Content-Type' => 'application/json;charset=UTF-8', 
+            'Charset' => 'utf-8'
+        ];
+
+        return response()->json($error, $code, $headers, JSON_UNESCAPED_UNICODE);
     }
 
+    public function testResponseError()
+    {
+        return $this->responseError("Lỗi rồi");
+    }
 }
+

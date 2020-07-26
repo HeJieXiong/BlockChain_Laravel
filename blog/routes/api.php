@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/me', 'Api\AuthController@me');
     Route::post('/logout', 'Api\AuthController@logout');
 
-    Route::prefix('wallet', function() {
+    Route::prefix('wallet')->group(function() {
       Route::get('/', 'WalletController@index');
       Route::get('/{id}', 'WalletController@detail');
       Route::post('/', 'WalletController@add');
@@ -29,4 +29,4 @@ Route::group(['middleware' => 'auth:api'], function() {
 });
 
 
-
+Route::get('/test', 'Controller@testResponseError');

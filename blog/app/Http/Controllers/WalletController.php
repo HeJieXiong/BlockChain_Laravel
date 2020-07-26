@@ -51,5 +51,4 @@ class WalletController extends Controller
 
         return $this->responseSuccess($wallet);
     }
-
 }

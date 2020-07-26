@@ -27,7 +27,7 @@ class AuthControllerRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|unique:users,id|min:6|max:16',
+            'username' => 'required|unique:users,username|min:6|max:16',
             'password' => 'required|string|min:6|max:16', 
             'full_name' => 'required|string',
             'phone_number' => 'required|string',
