@@ -37,7 +37,7 @@ class AuthController extends Controller
                 'user' => $user
             ]);
         }
-        return $this->responseError('Unauthorized', '', 401);
+        return $this->responseError('Unauthorized', 401);
     }
 
     public function me()
