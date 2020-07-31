@@ -14,6 +14,7 @@ class WalletController extends Controller
     {
         $limit = $request->get('limit', 10);
         $wallets = Wallet::orderBy('id', 'desc')
+            ->where('user_id', auth()->id())
             ->paginate($limit);
         return $this->responseSuccess($wallets);
     }
